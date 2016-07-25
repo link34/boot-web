@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>顧客管理システム:ユーザー編集</title>
+<style type="text/css">
+span.error {
+	color: red;
+}
+</style>
+</head>
+<body>    
+	ユーザーの登録
+	<form action="/user/edit" method="post"
+		th:object="${user}">
+		<table>
+			<tr>
+				<p th:if="*{id} != 0">
+				<td>ID:</td>
+				<td><input name="id" type="text" readonly="readonly"
+					th:value="*{id}" /></td>
+				</p>
+			</tr>
+			<tr>
+				<td>ログインID:</td>
+				<td>
+				<input name="loginId" type="text" th:value="*{loginId}" />
+				<SPAN class="error" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}">
+				    error
+				</SPAN>
+				</td>
+			</tr>
+			<tr>
+				<td>パスワード:</td>
+				<td>
+				<input name="password" type="password" th:value="*{password}" />
+				<span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error</span>
+				</td>
+			</tr>
+			<tr>
+				<td>名前:</td>
+				<td>
+				<input name="name" type="text" th:value="*{name}" />
+				<span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</span>
+				</td>
+			</tr>
+			<tr>
+                <td>よみがな:</td>
+                <td>
+                <input name="phonetic" type="text" th:value="*{phonetic}" />
+                <span class="error" th:if="${#fields.hasErrors('phonetic')}" th:errors="*{phonetic}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>郵便番号:</td>
+                <td>
+                <input name="postalCode" type="text" th:value="*{postalCode}" />
+                <span class="error" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>都道府県:</td>
+                <td>
+                    <SELECT name="prefectureId">
+                        <OPTGROUP label="未選択" 
+                        th:each="region : ${T(jp.co.sekainet.traning.type.Region).values()}"
+                        th:label="${region.name}">
+                        
+                        <OPTION value="0" label="未選択"
+                        th:each="pref : ${region.prefectures}" th:value="${pref.id}"
+                        th:label="${pref.name}" th:selected="*{prefectureId} == ${pref.id}" />
+                        
+                        </OPTGROUP>
+                    </SELECT>
+                    <span class="error" th:if="${#fields.hasErrors('prefectureId')}" th:errors="*{prefectureId}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>市区町村:</td>
+                <td>
+                <input name="city" type="text" th:value="*{city}" />
+                <span class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>番地・建物:</td>
+                <td>
+                <input name="address" type="text" th:value="*{address}" />
+                <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>電話番号:</td>
+                <td>
+                <input name="telephone" type="text" th:value="*{telephone}" />
+                <span class="error" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>メールアドレス:</td>
+                <td>
+                <input name="email" type="text" th:value="*{email}" />
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>備考:</td>
+                <td>
+                <TEXTAREA rows="5" cols="60" name="note" th:text="*{note}"></TEXTAREA>
+                <span class="error" th:if="${#fields.hasErrors('note')}" th:errors="*{note}">error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>管理者:</td>
+                <td>
+                <input name="admin" type="checkbox" value="true" th:checked="*{admin}" />
+                <span class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">error</span>
+                </td>
+            </tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="送信" /><a href="/user/list"><INPUT type="button" value="戻る" /></a></td>
+			</tr>
+		</table>		
+	</form>
+	
+	<p th:if="${saved}">
+       登録されました。
+    </p>
+</body>
+</html>

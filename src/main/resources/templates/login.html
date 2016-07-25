@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>顧客管理システム:ログイン</title>
+<style type="text/css">
+span.error { color: red; }
+</style>
+</head>
+<body>
+  <form action="./login" method="post">
+    <p>顧客管理システムへようこそ</p>
+    <div th:if="${@userService.loginUser} != null" th:object="${@userService.loginUser}">
+      <p th:text="|*{name}さん、ようこそ！|">ユーザーさん、ようこそ！</p>
+    </div>
+    <p>ログインID: <input name="loginId" type="text" /></p>
+    <p>パスワード: <input name="password" type="password" /></p>
+    <p><span th:text="${message}" class="error">ログインIDまたはパスワードの入力に誤りがあります</span></p>
+    <p><input type="submit" value="送信" /></p>
+  </form>
+</body>
+</html>

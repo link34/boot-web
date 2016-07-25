@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>顧客管理システム:ユーザー編集</title>
+<style type="text/css">
+span.error {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div>
+		<DIV>
+			<A href="/user/edit" style="float: left;">新規ユーザー作成</A> <a
+				href="/logout" style="float: right;">ログアウト</a>
+				<HR />
+		</DIV>
+		<DIV>
+			<TABLE border="1">
+				<tr>
+					<TH>ID</TH>
+					<TH>ログインＩＤ</TH>
+					<TH>名前</TH>
+					<TH>よみがな</TH>
+					<TH>郵便番号</TH>
+					<TH>都道府県</TH>
+					<TH>市区町村</TH>
+					<TH>番地・建物</TH>
+					<TH>電話番号</TH>
+					<TH>メールアドレス</TH>
+					<TH>備考</TH>
+					<TH>管理者</TH>
+					<TH>編集</TH>
+					<TH>削除</TH>
+				</tr>
+				<tr th:each="user : ${users}" th:object="${user}">
+					<td th:text="*{id}">1</td>
+					<td th:text="*{loginId}">t.asami</td>
+					<td th:text="*{name}">阿佐美武彦</td>
+					<td th:text="*{phonetic}">こうのやすたか</td>
+					<td th:text="*{postalCode}">９８３－０８５２</td>
+					<td th:text="*{prefecture}">宮城県</td>
+					<td th:text="*{city}">仙台市宮城野区</td>
+					<td th:text="*{address}">榴岡x-x-x</td>
+					<td th:text="*{telephone}">022-781-xxxx</td>
+					<td th:text="*{email}">y.kono@example.com</td>
+					<td th:text="*{note}">サンプル用アカウント</td>
+					<td><INPUT type="checkbox" onclick="retrun false"
+						th:checked="*{admin}" /></td>
+					<td><a href="/user/edit?id=1" th:href="|/user/edit?id=*{id}|">編集</a>
+					</td>
+					<td><a href="/user/delete?id=1"
+						th:href="|/user/delete?id=*{id}|"
+						th:onclick="|return window.confirm('「*{name}」を削除します。よろしいですか?]');|">削除</a>
+					</td>
+				</tr>
+			</TABLE>
+		</DIV>
+	</div>
+</body>
+</html>
